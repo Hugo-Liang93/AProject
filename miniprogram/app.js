@@ -1,7 +1,7 @@
 //app.js
 App({
   onLaunch: function () {
-    
+    var that =this
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
     } else {
@@ -14,6 +14,29 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if(res.code){
+          wx.request({
+            //指定到后台操作接口
+            url:"",
+            data:{
+              code:res.code
+            },
+            header:{
+              'Content-Type':'application/json'
+            },
+            success:function(res){
+              var res=JSON.parse(res.data)
+              //将前端openID存到了wx.stroge里面
+              wx.storge({
+                key:"openid",
+                data:res.openid
+              });
+              that.globalData.userInfo=res.openid
+            }
+          })
+        }else{
+          console.log("登陆失败"+res.errMsg)
+        }
       }
     })
     wx.getSetting({
@@ -37,6 +60,7 @@ App({
 
   },
   globalData:{
-    userInfo:null
+    userInfo:null,
+    openid:""
   }
 })

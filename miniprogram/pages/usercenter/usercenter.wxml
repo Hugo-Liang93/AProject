@@ -1,2 +1,31 @@
-<!--pages/usercenter/usercenter.wxml-->
-<text>pages/usercenter/usercenter.wxml</text>
+<!--pages/test/test.wxml-->
+<view class="weui-cell" style="justify-content: center;">
+    <view class="weui-cell__hd" >
+        <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+        <block wx:else>
+            <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover" ></image>
+        </block>
+    </view>
+    <view class="weui-cell__ft">
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+</view>
+
+<view class="weui-cell" bindTap="">
+    <view class="weui-cell__bd">
+        <text>我的订单</text>
+    </view>
+    <view class="weui-cell__ft">查看全部订单</view>
+</view>
+
+<view class="weui-cells__title">带说明的列表项</view>
+<view class="weui-cells">
+    <view class="weui-cell">
+        <view class="weui-cell__bd">
+            <text>标题文字</text>
+        </view>
+        <view class="weui-cell__ft">说明文字</view>
+    </view>
+</view>
+
+
